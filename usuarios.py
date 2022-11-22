@@ -25,3 +25,9 @@ def create():
 def recovery():
     usuarios = Usuario.query.all()
     return render_template('usuarios_recovery.html', usuarios=usuarios )
+
+
+@bp_usuarios.route('/update/<int:id>')
+def update(id):
+    u = Usuario.query.get(id)
+    return render_template('usuarios_update.html', u = u)

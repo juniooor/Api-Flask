@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar</title>
+</head>
+<body>
+    <form method="post" action="/usuarios/update/{{u.id}}">
+        Nome: <input type="text" name="nome" value="{{u.nome}}"><br>
+        E-mail: <input type="text" name="email" value=" {{u.email}}"><br>
+        Senha: <input type="password" name="senha"><br>
+        Confirmação de senha: <input type="password" name="csenha"><br>
+        <input type="submit" value="cadastrar">
+    </form>
+</body>
+</html>
