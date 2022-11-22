@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask import render_template, request
+from flask import render_template, request, redirect
 from models import Usuario
 from database import db
 
@@ -27,7 +27,28 @@ def recovery():
     return render_template('usuarios_recovery.html', usuarios=usuarios )
 
 
-@bp_usuarios.route('/update/<int:id>')
+@bp_usuarios.route('/update/<int:id>', methods=['GET', 'POST'])
 def update(id):
     u = Usuario.query.get(id)
-    return render_template('usuarios_update.html', u = u)
+    if request.method == 'GET':
+        return render_template('usuarios_update.html', u = u)
+    if request.method == 'POST':
+        nome = request.form.get('nome')
+        email = request.form.get('email')
+        u.nome = nome
+        u.email = email
+        db.session.add(u)
+        db.session.commit()
+        return redirect('/usuarios/recovery')
+        
+        
+@bp_usuarios.route('/delete/<int:id>', methods= ['GET', 'POST'])
+def delete(id):
+    u = Usuario.query.get(id)
+    if request.method=='GET':
+        return render_template('usuarios_delete.html', u = u)
+    
+    if request.method=='POST':
+        db.session.delete(u)
+        db.session.commit()
+        return 'Dados excluidos com sucesso'
